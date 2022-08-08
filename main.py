@@ -37,17 +37,10 @@ modelos = {
 fine_tune = ["Ft", "Wo"]
 
 # Bilinear Interpolation/Zero Padding
-#|||||||define resize as parameter on custom-loader|||||||
 resize = ["interpolation", "zeropadding"]
-
-# 4 Classes; NormalxAnormal; NormalxDme; NormalxDrusen; NormalxCNV
-experiments = ["Clas", "NxAn", "NxDm", "NxDr", "NxCn"]
 
 for model_name, base in modelos.items():
 	#LOADING DATASET
-
-	#||||||||adjust acording to expirement||||||||||||
-
 	train, val = cl.customDataset(
 		"/home/mauricio/dados/Mauricio/OCT2017/train", 
 		validation_split=validation_split, 
@@ -55,7 +48,7 @@ for model_name, base in modelos.items():
 		batch_size=batch_size,
 		h=tam, 
 		w=tam,
-		resize=resize[1]
+		resize=resize[0]
 		)
 
 	# CREATING MODEL
@@ -65,10 +58,8 @@ for model_name, base in modelos.items():
 	jarbas = models.Sequential()
 	jarbas.add(base)
 	jarbas.add(layers.Flatten())
-	#||||||||adjust acording to experiment||||||||||||
 	jarbas.add(layers.Dense(4, activation='softmax'))
 
-	#||||||||adjust acording to experiment||||||||||||
 	jarbas.compile(
 		loss="sparse_categorical_crossentropy", 
 		optimizer="Adam", 
@@ -80,13 +71,13 @@ for model_name, base in modelos.items():
 
 	# TESTING	
 	
-	#||||||||adjust acording to experiment||||||||||||
 	test, _ = cl.customDataset(
 		"/home/mauricio/dados/Mauricio/OCT2017/test", 
 		label_names=class_names, 
 		batch_size=batch_size,
 		h=tam, 
-		w=tam
+		w=tam,
+		resize=resize[0]
 		)
 
 	#|||||||do fine tuning|||||||
