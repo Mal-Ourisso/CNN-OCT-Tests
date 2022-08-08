@@ -40,12 +40,10 @@ def adjust_img(image, label):
 
 for model_name, base in modelos.items():	
 
-	print(model_name)
-
 	#LOADING DATASET
 
 	train, val = cl.customDataset(
-		"/home/mauricio/dados/Mauricio/OCT2017/test", 
+		"/home/mauricio/dados/Mauricio/OCT2017/train", 
 		validation_split=validation_split, 
 		label_names=class_names, 
 		batch_size=batch_size,
@@ -92,7 +90,7 @@ for model_name, base in modelos.items():
 	for i in con_mat_tensor:
 		con_mat.append(list(i.numpy()))
 
-	print(f"{model_name}NO FINE TUNE"}
+	print(f"{model_name}NO FINE TUNE")
 	jarbas.evaluate(teste)
 
 	#SAVING
@@ -131,7 +129,7 @@ for model_name, base in modelos.items():
 	for i in con_mat_tensor:
 		con_mat.append(list(i.numpy()))
 
-	print(f"{model_name}FINE TUNE"}
+	print(f"{model_name}FINE TUNE")
 	jarbas.evaluate(teste)
 
 	#SAVING FINE TUNE
