@@ -1,0 +1,9 @@
+
+- Parameters:
+	Models	    = all
+	Fine Tune   = (true, false)
+	Experiment  = 4 classes
+	Resize Type = Interpolation
+
+- Results Format:
+	<model_name><0/1 for no/with fine tune>
